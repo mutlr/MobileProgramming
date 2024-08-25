@@ -1,12 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Main from './src/components/Main';
+import { AppRegistry } from 'react-native';
+import { PaperProvider } from 'react-native-paper';
+export const Home = ({navigator}) => {
+  return (
+    <View>
+      <Text>Home</Text>
+    </View>
+  )
+}
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <PaperProvider>
+          <Main />
+        </PaperProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
