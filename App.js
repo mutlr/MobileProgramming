@@ -4,20 +4,22 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Main from './src/components/Main';
-import { AppRegistry } from 'react-native';
-import { PaperProvider } from 'react-native-paper';
-export const Home = ({navigator}) => {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
-}
+import { PaperProvider, DefaultTheme } from 'react-native-paper';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    secondary: 'yellow',
+  },
+};
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <PaperProvider>
+        <PaperProvider theme={theme} >
           <Main />
         </PaperProvider>
       </NavigationContainer>

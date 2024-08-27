@@ -17,7 +17,7 @@ const WorkoutGroup = () => {
 }
 const TabGroup = () => {
     return (
-        <Tab.Navigator screenOptions={{
+        <Tab.Navigator initialRouteName='WorkoutGroup' screenOptions={{
             headerTitleAlign: 'center'
         }}>
             <Tab.Screen name="Workouts" component={Workouts} />
