@@ -6,15 +6,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as yup from "yup";
 import WorkoutsContext from "../context/workoutsContext";
+import UnitContext from "../context/unitContext";
 const schema = yup.object({
     distance: yup.number('Must be a number')
-            .positive("Must be a positive number")
-            .integer("Must be a number")
-            .required("Value is required"),
+        .positive("Must be a positive number")
+        .integer("Must be a number")
+        .required("Value is required"),
     duration: yup.number('Must be a number')
-            .positive("Must be a positive number")
-            .integer("Must be a number")
-            .required("Value is required"),
+        .positive("Must be a positive number")
+        .integer("Must be a number")
+        .required("Value is required"),
     sport: yup.string(),
     date: yup.date().required(),
 
@@ -36,10 +37,10 @@ const Input = ({ name, control, icon, label, editable, value }) => {
     })
     const errorValid = !error && !isTouched
     return (
-        <TextInput 
+        <TextInput
             value={value || field.value}
             onChangeText={field.onChange}
-            style={[styles.input, {backgroundColor: theme.colors.secondary, borderColor: 'red'}]}
+            style={[styles.input, { backgroundColor: theme.colors.secondary, borderColor: 'red' }]}
             mode="outlined"
             label={errorValid ? label : error.message}
             name={name}
@@ -51,6 +52,7 @@ const Input = ({ name, control, icon, label, editable, value }) => {
 }
 const WorkoutForm = ({ type }) => {
     const { addToList } = useContext(WorkoutsContext)
+    const { unit } = useContext(UnitContext)
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(new Date());
     const { control, handleSubmit, error, setValue } = useForm({
@@ -71,15 +73,15 @@ const WorkoutForm = ({ type }) => {
     }, [date, setValue]);
     const onSubmit = data => {
         addToList(data);
-    } 
+    }
     const onChange = (event, selectedDate) => {
         setShow(false);
         setDate(selectedDate);
-      };
+    };
     return (
         <View>
             <Input label="Sport" name="sport" control={control} icon="run-fast" editable={false} />
-            <Input label={"Distance (km)"} name="distance" control={control} icon="map-marker-distance" />
+            <Input label={`Distance (${unit === 'km' ? 'KM' : "Miles"})`} name="distance" control={control} icon="map-marker-distance" />
             <Input label={"Duration (min)"} name="duration" control={control} icon="camera-timer" />
             {show && <DateTimePicker
                 value={date}

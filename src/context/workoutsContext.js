@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import UnitContext from "./unitContext";
 
 const initialWorkouts = [
     {
@@ -23,6 +24,7 @@ const initialWorkouts = [
 const WorkoutsContext = createContext()
 
 export const WorkoutsProvider = ({ children }) => {
+    const { unit } = useContext(UnitContext)
     const [workouts, setWorkouts] = useState(initialWorkouts)
     const addToList = (workout) => {
         const workoutObject = {
