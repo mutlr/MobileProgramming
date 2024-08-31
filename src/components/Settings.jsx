@@ -2,48 +2,52 @@ import { View, Text, StyleSheet } from "react-native"
 import { useState, useEffect, useContext } from "react";
 import { RadioButton, useTheme } from 'react-native-paper';
 import UnitContext from "../context/unitContext";
+import Bubble from "../components/Bubble"
 const styles = StyleSheet.create({
     text: {
         fontSize: 36,
     },
     container: {
         display: 'flex',
-        gap: 10
+        gap: 10,
     },
     radio: {
-
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'flex-start',
+        marginTop: 8
     }
 })
+const CustomRadioButton = ({ text, value }) => {
+    const theme = useTheme()
+    return (
+        <Bubble style={styles.radio}>
+            <RadioButton value={value}
+            color={theme.colors.primary}
+            uncheckedColor="black" 
+            />
+            <Text>{text}</Text>
+        </Bubble>
+    )
+}
 const Settings = () => {
     const { unit, changeUnit } = useContext(UnitContext)
-    const [checked, setChecked] = useState(unit);
+    const [value, setValue] = useState(unit);
     const theme = useTheme()
-    const changeValue = async () => {
-        const new_value = checked === 'km' ? 'miles' : 'km'
-        setChecked(new_value)
+    const changeValue = async (value) => {
+        const new_value = value === 'km' ? 'km' : 'miles'
+        setValue(new_value)
         await changeUnit(new_value)
     }
     return (
-        <View style={styles.container}>
+        <View >
             <Text style={styles.text}>Units</Text>
-            <Text>Kilometers</Text>
-            <RadioButton
-                value="km"
-                status={checked === 'km' ? 'checked' : 'unchecked'}
-                onPress={changeValue}
-                uncheckedColor='black'
-                color={theme.colors.secondary}
-            />
-            <Text>Miles</Text>
-            <RadioButton
-                
-                value="miles"
-                status={checked === 'miles' ? 'checked' : 'unchecked'}
-                onPress={changeValue}
-                uncheckedColor='black'
-                color={theme.colors.secondary}
-            />
-        </View>
+        <RadioButton.Group onValueChange={(newValue) => changeValue(newValue)} value={value}>
+            <CustomRadioButton text="Kilometers" value="km"/>
+            <CustomRadioButton text="Miles" value="miles"/>
+        </RadioButton.Group>
+    </View>
     )
 }
 
