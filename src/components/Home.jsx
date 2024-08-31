@@ -2,6 +2,7 @@ import { Text, useTheme } from "react-native-paper"
 import { FlatList, Pressable, StyleSheet, View } from "react-native"
 import { WorkoutButton } from "./AddWorkout"
 import { useContext } from "react"
+import Bubble from "./Bubble"
 
 export const workouts = ["Run", "Ski", "Swim"]
 const styles = StyleSheet.create({
@@ -22,7 +23,11 @@ const Home = ({ navigation }) => {
         <View>
             <FlatList 
                 data={workouts}
-                renderItem={({item}) => <WorkoutButton type={item} onClick={() => onPressFunction(item)} style={[styles.workout, {backgroundColor: theme.colors.secondary}]}/>}
+                renderItem={({item}) => (
+                    <Bubble>
+                        <WorkoutButton type={item} onClick={() => onPressFunction(item)}/>
+                    </Bubble>
+            )}
                 horizontal={true}
                 style={styles.workoutList}
                 contentContainerStyle={{gap: 8}}

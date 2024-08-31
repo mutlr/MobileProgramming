@@ -30,7 +30,7 @@ export const WorkoutsProvider = ({ children }) => {
     const [summary, setSummary] = useState([])
 
     useEffect(() => {
-        setSummary(Array(statsSummary()))
+        setSummary(statsSummary())
     }, [workouts, unit])
     const addToList = (workout) => {
         const workoutObject = {
@@ -43,7 +43,7 @@ export const WorkoutsProvider = ({ children }) => {
     }
 
     const statsSummary = () => {
-        return workouts.reduce((accumulator, item) => {
+        const summaryObject = workouts.reduce((accumulator, item) => {
             const type = item.type
             if (!accumulator[type]) {
                 accumulator[type] = 0
@@ -51,6 +51,11 @@ export const WorkoutsProvider = ({ children }) => {
             accumulator[type] += unit === 'km' ? item.distance : kilometerToMiles(item.distance)
             return accumulator
         }, {})
+
+        return Object.entries(summaryObject).map(([type, distance]) => ({
+            type,
+            distance,
+        }))
     }
     return (
         <WorkoutsContext.Provider value={{

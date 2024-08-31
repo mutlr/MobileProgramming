@@ -1,9 +1,9 @@
-import {StyleSheet, SafeAreaView, StatusBar} from 'react-native';
+import {StyleSheet, SafeAreaView, StatusBar, View} from 'react-native';
 import TabGroup from "../navigation/NavigationGroups"
 
 const Main = () => {
     return (
-            <TabGroup />
+        <TabGroup />
     )
 }
 

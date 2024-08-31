@@ -13,10 +13,12 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#364156',
+    textColor: '#364156',
+    primary: 'white',
     secondary: '#B2E6D4',
   },
 };
+
 export default function App() {
   return (
     <SafeAreaProvider>

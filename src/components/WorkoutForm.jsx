@@ -40,7 +40,7 @@ const Input = ({ name, control, icon, label, editable, value }) => {
         <TextInput
             value={value || field.value}
             onChangeText={field.onChange}
-            style={[styles.input, { backgroundColor: theme.colors.secondary, borderColor: 'red' }]}
+            style={[styles.input, { backgroundColor: theme.colors.secondary, }]}
             mode="outlined"
             label={errorValid ? label : error.message}
             name={name}
