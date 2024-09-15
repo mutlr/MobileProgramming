@@ -13,11 +13,12 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     radio: {
-        display: 'flex', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: 8
+        marginTop: 8,
+        paddingLeft: 8
     }
 })
 const CustomRadioButton = ({ text, value }) => {
@@ -25,8 +26,8 @@ const CustomRadioButton = ({ text, value }) => {
     return (
         <Bubble style={styles.radio}>
             <RadioButton value={value}
-            color={theme.colors.primary}
-            uncheckedColor="black" 
+                color={theme.colors.primary}
+                uncheckedColor="black"
             />
             <Text>{text}</Text>
         </Bubble>
@@ -43,11 +44,11 @@ const Settings = () => {
     return (
         <Wrapper>
             <Text style={styles.text}>Units</Text>
-        <RadioButton.Group onValueChange={(newValue) => changeValue(newValue)} value={value}>
-            <CustomRadioButton text="Kilometers" value="km"/>
-            <CustomRadioButton text="Miles" value="miles"/>
-        </RadioButton.Group>
-    </Wrapper>
+            <RadioButton.Group onValueChange={(newValue) => changeValue(newValue)} value={value}>
+                <CustomRadioButton text="Kilometers" value="km" />
+                <CustomRadioButton text="Miles" value="miles" />
+            </RadioButton.Group>
+        </Wrapper>
     )
 }
 

@@ -1,7 +1,10 @@
+import { randomUUID } from "expo-crypto";
+
 export const formatDate = (date) => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    const tempDate = new Date(date)
+    const day = String(tempDate.getDate()).padStart(2, '0');
+    const month = String(tempDate.getMonth() + 1).padStart(2, '0');
+    const year = tempDate.getFullYear();
 
     return `${day}.${month}.${year}`;
 };
@@ -12,4 +15,8 @@ export const kilometerToMiles = (km) => {
 
 export const milesToKilometer = (miles) => {
     return Math.round(miles * MILE_VALUE)
+}
+
+export const generateId = () => {
+    return randomUUID()
 }

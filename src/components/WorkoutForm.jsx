@@ -11,11 +11,11 @@ const schema = yup.object({
     distance: yup.number('Must be a number')
         .positive("Must be a positive number")
         .integer("Must be a number")
-        .required("Value is required").typeError("Value must be a positive number"),
+        .required("Value is required").typeError("Positive numbers only!"),
     duration: yup.number('Must be a number')
         .positive("Must be a positive number")
         .integer("Must be a number")
-        .required("Value is required").typeError("Value must be a positive number"),
+        .required("Value is required").typeError("Positive numbers only!"),
     sport: yup.string(),
     date: yup.date().required(),
 
@@ -50,13 +50,13 @@ const Input = ({ name, control, icon, label, editable, value }) => {
         />
     )
 }
-const WorkoutForm = ({ type }) => {
+const WorkoutForm = ({ type, navigation }) => {
     const { addToList } = useContext(WorkoutsContext)
     const { unit } = useContext(UnitContext)
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(new Date());
     const theme = useTheme()
-    const { control, handleSubmit, error, setValue } = useForm({
+    const { control, handleSubmit, error, setValue, reset } = useForm({
         defaultValues: {
             duration: '',
             distance: '',
@@ -73,12 +73,15 @@ const WorkoutForm = ({ type }) => {
     useEffect(() => {
         setValue('date', date);
     }, [date, setValue]);
-    const onSubmit = data => {
-        if (error) {
-            print("Error!", error)
-            return
+    const onSubmit = async (data) => {
+        if (error) return
+        try {
+            addToList(data);
+            navigation.navigate('Workouts')
+            reset()
+        } catch (error) {
+            console.log(`Error submitting form ${error}`)
         }
-        addToList(data);
     }
     const onChange = (event, selectedDate) => {
         setShow(false);

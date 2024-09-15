@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { addToStorage, getFromStorage } from "../utils/storage";
 const STORAGE_KEY = "unit"
 const UnitContext = createContext()
 
@@ -10,7 +10,7 @@ export const UnitsProvider = ({ children }) => {
     useEffect(() => {
         const getUnitData = async () => {
             try {
-                const value = await AsyncStorage.getItem(STORAGE_KEY)
+                const value = await getFromStorage(STORAGE_KEY)
                 console.log("Value from storage: ", value)
                 if (value) {
                     setUnit(value)
@@ -25,7 +25,7 @@ export const UnitsProvider = ({ children }) => {
     const changeUnit = async (unit) => {
         //Change unit
         try {
-            await AsyncStorage.setItem(STORAGE_KEY, unit);
+            await addToStorage(STORAGE_KEY, unit)
             setUnit(unit)
             console.log("Changed unit")
         } catch (e) {
