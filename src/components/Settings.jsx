@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from "react-native"
-import { useState, useEffect, useContext } from "react";
+import { Text, StyleSheet } from "react-native"
+import { useState, useContext } from "react";
 import { RadioButton, useTheme } from 'react-native-paper';
 import UnitContext from "../context/unitContext";
 import Bubble from "../components/Bubble"

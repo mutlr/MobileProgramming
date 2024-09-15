@@ -1,13 +1,12 @@
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Settings from '../components/Settings';
 import Workouts from '../components/Workouts';
 import Home from '../components/Home';
-import AddWorkout from '../components/AddWorkout';
 import { useTheme } from 'react-native-paper';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
 
@@ -26,7 +25,6 @@ const WorkoutGroup = () => {
                     title: 'Home',
                 }}
             />
-            <Stack.Screen name='AddWorkout' component={AddWorkout} options={{ title: 'Add a Workout' }} />
         </Stack.Navigator>
     )
 }
@@ -34,7 +32,7 @@ const WorkoutGroup = () => {
 const TabGroup = () => {
     const theme = useTheme()
     return (
-        <Tab.Navigator initialRouteName='WorkoutGroup'
+        <Tab.Navigator initialRouteName='Home'
             screenOptions={{
                 headerTitleAlign: 'center',
                 tabBarActiveTintColor: theme.colors.secondary,
@@ -54,10 +52,9 @@ const TabGroup = () => {
                 }}
             />
             <Tab.Screen
-                name='WorkoutGroup'
-                component={WorkoutGroup}
+                name='Home'
+                component={Home}
                 options={{
-                    headerShown: false,
                     tabBarIcon: ({ size, color }) => (
                         <Entypo name="home" size={size} color={color} />
                     ),

@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { View, FlatList, StyleSheet, Dimensions, Pressable } from "react-native"
 import WorkoutsContext from "../context/workoutsContext"
-import { Avatar, Chip, Text, useTheme } from "react-native-paper"
+import { Avatar, Text, useTheme } from "react-native-paper"
 import { formatDate, kilometerToMiles } from "../utils/utils"
 import UnitContext from "../context/unitContext"
 import Bubble from "./Bubble"
@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         alignItems: 'flex-start',
         borderRadius: 16,
+    },
+    button: {
+        display: "flex",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
 
@@ -38,25 +44,28 @@ const Workouts = () => {
             < FlatList
                 ListHeaderComponent={
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Bubble style={{ marginRight: 10 }}>
-                            <Pressable onPress={() => setFilter('')}>
+                        <Pressable onPress={() => setFilter('')}>
+                            <Bubble style={{ marginRight: 10, backgroundColor: filter === '' ? theme.colors.primary : theme.colors.secondary }}>
                                 <Text variant="labelLarge">All</Text>
-                            </Pressable>
-                        </Bubble>
+                            </Bubble>
+                        </Pressable>
                         <FlatList
 
                             keyExtractor={item => item.distance + item.type}
                             contentContainerStyle={{ gap: 10, display: 'flex', flexDirection: 'row' }}
                             horizontal={true}
                             data={summary}
-                            renderItem={({ item }) => (
-                                <Bubble >
-                                    <Pressable style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => setFilter(item.type)}>
-                                        <Avatar.Icon icon={item.type.toLowerCase()} size={40} style={{ backgroundColor: theme.colors.secondary }} color={'black'} />
-                                        <Text variant="labelLarge">{item.distance}</Text>
+                            renderItem={({ item }) => {
+                                const COLOR = filter === item.type ? theme.colors.primary : theme.colors.secondary
+                                return (
+                                    <Pressable onPress={() => setFilter(item.type)}>
+                                        <Bubble style={[styles.button, { backgroundColor: COLOR }]}>
+                                            <Avatar.Icon icon={item.type.toLowerCase()} size={40} style={{ backgroundColor: COLOR }} color={'black'} />
+                                            <Text variant="labelLarge">{item.distance}</Text>
+                                        </Bubble>
                                     </Pressable>
-                                </Bubble>
-                            )}
+                                )
+                            }}
                         />
                     </View>
                 }
