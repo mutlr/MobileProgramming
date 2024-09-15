@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react"
-import { View, FlatList, StyleSheet, Dimensions } from "react-native"
+import { useContext, useEffect, useState } from "react"
+import { View, FlatList, StyleSheet, Dimensions, Pressable } from "react-native"
 import WorkoutsContext from "../context/workoutsContext"
 import { Avatar, Chip, Text, useTheme } from "react-native-paper"
 import { formatDate, kilometerToMiles } from "../utils/utils"
@@ -29,26 +29,40 @@ const ItemHeader = ({ type, date }) => {
     )
 }
 const Workouts = () => {
+    const [filter, setFilter] = useState('')
+    const theme = useTheme()
     const { unit } = useContext(UnitContext)
     const { workouts, summary } = useContext(WorkoutsContext)
     return (
         <Wrapper>
             < FlatList
                 ListHeaderComponent={
-                    <FlatList
-                        keyExtractor={item => item.distance + item.type}
-                        contentContainerStyle={{ gap: 10 }}
-                        horizontal={true}
-                        data={summary}
-                        renderItem={({ item }) => (
-                            <Bubble >
-                                <Text variant="labelLarge">{item.type} {item.distance}</Text>
-                            </Bubble>
-                        )}
-                    />
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                        <Bubble style={{ marginRight: 10 }}>
+                            <Pressable onPress={() => setFilter('')}>
+                                <Text variant="labelLarge">All</Text>
+                            </Pressable>
+                        </Bubble>
+                        <FlatList
+
+                            keyExtractor={item => item.distance + item.type}
+                            contentContainerStyle={{ gap: 10, display: 'flex', flexDirection: 'row' }}
+                            horizontal={true}
+                            data={summary}
+                            renderItem={({ item }) => (
+                                <Bubble >
+                                    <Pressable style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => setFilter(item.type)}>
+                                        <Avatar.Icon icon={item.type.toLowerCase()} size={40} style={{ backgroundColor: theme.colors.secondary }} color={'black'} />
+                                        <Text variant="labelLarge">{item.distance}</Text>
+                                    </Pressable>
+                                </Bubble>
+                            )}
+                        />
+                    </View>
                 }
-                data={workouts}
+                data={workouts.filter((item) => filter === '' || item.type === filter)}
                 contentContainerStyle={{ gap: 16, paddingBottom: 20 }}
+                extraData={filter}
                 renderItem={({ item }) => (
                     <Bubble style={styles.container}>
                         <ItemHeader type={item.type} date={item.date} />

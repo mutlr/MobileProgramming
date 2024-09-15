@@ -5,7 +5,7 @@ export const getFromStorage = async (key) => {
 }
 
 export const addToStorage = async (key, items) => {
-    await AsyncStorage.setItem(key, items);
+    return await AsyncStorage.setItem(key, items);
 }
 
 export const clearStorage = async (key) => {
