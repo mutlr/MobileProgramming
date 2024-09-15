@@ -4,6 +4,7 @@ import { workouts, WorkoutsList } from "./Home";
 import { useState } from "react";
 import WorkoutForm from "./WorkoutForm";
 import Bubble from "./Bubble";
+import Wrapper from "./Wrapper";
 
 const styles = StyleSheet.create({
     button: {
@@ -26,7 +27,7 @@ const AddWorkout = (props) => {
         setType(title)
     }
     return (
-        <View>
+        <Wrapper>
             <FlatList 
             data={workouts}
             renderItem={({item}) => (
@@ -42,7 +43,7 @@ const AddWorkout = (props) => {
             contentContainerStyle={{gap: 8}}
             />
         <WorkoutForm type={type}/>
-        </View>
+        </Wrapper>
     )
 }
 

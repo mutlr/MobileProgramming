@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { RadioButton, useTheme } from 'react-native-paper';
 import UnitContext from "../context/unitContext";
 import Bubble from "../components/Bubble"
+import Wrapper from "./Wrapper";
 const styles = StyleSheet.create({
     text: {
         fontSize: 36,
@@ -34,20 +35,19 @@ const CustomRadioButton = ({ text, value }) => {
 const Settings = () => {
     const { unit, changeUnit } = useContext(UnitContext)
     const [value, setValue] = useState(unit);
-    const theme = useTheme()
     const changeValue = async (value) => {
         const new_value = value === 'km' ? 'km' : 'miles'
         setValue(new_value)
         await changeUnit(new_value)
     }
     return (
-        <View >
+        <Wrapper>
             <Text style={styles.text}>Units</Text>
         <RadioButton.Group onValueChange={(newValue) => changeValue(newValue)} value={value}>
             <CustomRadioButton text="Kilometers" value="km"/>
             <CustomRadioButton text="Miles" value="miles"/>
         </RadioButton.Group>
-    </View>
+    </Wrapper>
     )
 }
 

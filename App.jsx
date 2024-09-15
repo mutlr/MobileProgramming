@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -21,16 +20,19 @@ const theme = {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <UnitsProvider>
-        <WorkoutsProvider>
-          <NavigationContainer>
-            <PaperProvider theme={theme} >
-              <Main />
-            </PaperProvider>
-          </NavigationContainer>
-        </WorkoutsProvider>
-      </UnitsProvider>
+    <SafeAreaProvider style={{ marginTop: 4}}>
+      <StatusBar />
+      <View style={styles.container}>
+        <UnitsProvider>
+          <WorkoutsProvider>
+            <NavigationContainer>
+              <PaperProvider theme={theme} >
+                <Main />
+              </PaperProvider>
+            </NavigationContainer>
+          </WorkoutsProvider>
+        </UnitsProvider>
+      </View>
     </SafeAreaProvider>
   );
 }
@@ -38,8 +40,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'white',
   },
 });

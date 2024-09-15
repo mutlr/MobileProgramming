@@ -5,6 +5,7 @@ import { Text } from "react-native-paper"
 import { formatDate, kilometerToMiles } from "../utils/utils"
 import UnitContext from "../context/unitContext"
 import Bubble from "./Bubble"
+import Wrapper from "./Wrapper"
 const styles = StyleSheet.create({
     text: {
         fontSize: 24
@@ -37,7 +38,7 @@ const Workouts = () => {
         console.log("Summary: ", summary)
     }, [])
     return (
-        <View style={{marginTop: 16}}>
+        <Wrapper>
             <FlatList
             contentContainerStyle={{ gap: 10}}
             horizontal={true}
@@ -46,7 +47,7 @@ const Workouts = () => {
                     console.log(`Value ${item}`)
                     return (
                         <Bubble>
-                            <Text>{item.type} {item.distance}</Text>
+                            <Text variant="labelLarge">{item.type} {item.distance}</Text>
                         </Bubble>
                 )}}
             />
@@ -61,7 +62,7 @@ const Workouts = () => {
                 )}
 
             />
-        </View >
+        </Wrapper >
     )
 }
 

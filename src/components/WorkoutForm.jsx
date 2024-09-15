@@ -11,19 +11,18 @@ const schema = yup.object({
     distance: yup.number('Must be a number')
         .positive("Must be a positive number")
         .integer("Must be a number")
-        .required("Value is required"),
+        .required("Value is required").typeError("Value must be a positive number"),
     duration: yup.number('Must be a number')
         .positive("Must be a positive number")
         .integer("Must be a number")
-        .required("Value is required"),
+        .required("Value is required").typeError("Value must be a positive number"),
     sport: yup.string(),
     date: yup.date().required(),
 
 }).required();
 const styles = StyleSheet.create({
     input: {
-        marginLeft: 8,
-        marginRight: 8,
+        color: 'red',
         marginTop: 8,
     }
 })
@@ -47,6 +46,7 @@ const Input = ({ name, control, icon, label, editable, value }) => {
             error={!errorValid}
             right={icon && <TextInput.Icon icon={icon} />}
             editable={editable}
+            activeOutlineColor="black"
         />
     )
 }
@@ -55,6 +55,7 @@ const WorkoutForm = ({ type }) => {
     const { unit } = useContext(UnitContext)
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(new Date());
+    const theme = useTheme()
     const { control, handleSubmit, error, setValue } = useForm({
         defaultValues: {
             duration: '',
@@ -63,6 +64,7 @@ const WorkoutForm = ({ type }) => {
             date: date,
         },
         resolver: yupResolver(schema),
+        fieldState: {}
     });
     useEffect(() => {
         setValue('sport', type);
@@ -72,6 +74,10 @@ const WorkoutForm = ({ type }) => {
         setValue('date', date);
     }, [date, setValue]);
     const onSubmit = data => {
+        if (error) {
+            print("Error!", error)
+            return
+        }
         addToList(data);
     }
     const onChange = (event, selectedDate) => {
@@ -93,7 +99,7 @@ const WorkoutForm = ({ type }) => {
             <Pressable onPress={() => setShow(true)}>
                 <Input label="Date" name="date" control={control} icon="calendar" editable={false} value={date.toLocaleDateString()} />
             </Pressable>
-            <Button backgroundColor="blue" onPress={handleSubmit(onSubmit)} disabled={error ? true : false}>Submit</Button>
+            <Button marginTop={20} buttonColor={theme.colors.secondary} textColor="black" mode='contained' onPress={handleSubmit(onSubmit)} disabled={error ? true : false}>Submit</Button>
         </View>
     )
 }

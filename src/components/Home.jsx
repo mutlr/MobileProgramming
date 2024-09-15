@@ -3,6 +3,7 @@ import { FlatList, Pressable, StyleSheet, View } from "react-native"
 import { WorkoutButton } from "./AddWorkout"
 import { useContext } from "react"
 import Bubble from "./Bubble"
+import Wrapper from "./Wrapper"
 
 export const workouts = ["Run", "Ski", "Swim"]
 const styles = StyleSheet.create({
@@ -20,7 +21,7 @@ const Home = ({ navigation }) => {
         navigation.navigate('AddWorkout', {type: title})
     }
     return (
-        <View>
+        <Wrapper>
             <FlatList 
                 data={workouts}
                 renderItem={({item}) => (
@@ -32,7 +33,7 @@ const Home = ({ navigation }) => {
                 style={styles.workoutList}
                 contentContainerStyle={{gap: 8}}
             />
-        </View>
+        </Wrapper>
     )
 }
 
