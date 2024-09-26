@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     button: {
         display: "flex",
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
+        paddingLeft: 8,
+        paddingRight: 8,
     }
 })
 
@@ -57,6 +57,7 @@ const Workouts = () => {
                             data={summary}
                             renderItem={({ item }) => {
                                 const COLOR = filter === item.type ? theme.colors.primary : theme.colors.secondary
+                                const DISTANCE_VALUE = unit === 'km' ? item.distance : kilometerToMiles(item.distance)
                                 return (
                                     <Pressable onPress={() => setFilter(item.type)}>
                                         <Bubble style={[styles.button, { backgroundColor: COLOR }]}>

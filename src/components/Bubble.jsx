@@ -4,7 +4,7 @@ import { useTheme } from "react-native-paper"
 const Bubble = ({ children, style }) => {
     const theme = useTheme()
     return (
-        <View style={[styles.main, {backgroundColor: theme.colors.secondary}, style]}>
+        <View style={[styles.main, { backgroundColor: theme.colors.secondary }, style]}>
             {children}
         </View>
     )
@@ -13,7 +13,7 @@ const Bubble = ({ children, style }) => {
 const styles = StyleSheet.create({
     main: {
         display: 'flex',
-        minWidth: 80,
+        minWidth: 100,
         minHeight: 50,
         justifyContent: 'center',
         alignItems: 'center',

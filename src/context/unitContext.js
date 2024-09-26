@@ -11,9 +11,10 @@ export const UnitsProvider = ({ children }) => {
         const getUnitData = async () => {
             try {
                 const value = await getFromStorage(STORAGE_KEY)
-                console.log("Value from storage: ", value)
                 if (value) {
                     setUnit(value)
+                } else {
+                    setUnit('km')
                 }
             } catch (error) {
                 console.error("Erroring getting unit key: ", error)
@@ -23,11 +24,9 @@ export const UnitsProvider = ({ children }) => {
     }, [])
 
     const changeUnit = async (unit) => {
-        //Change unit
         try {
             await addToStorage(STORAGE_KEY, unit)
             setUnit(unit)
-            console.log("Changed unit")
         } catch (e) {
             console.error("Error changing unit: ", e)
         }

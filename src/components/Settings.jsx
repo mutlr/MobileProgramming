@@ -26,7 +26,7 @@ const CustomRadioButton = ({ text, value }) => {
     return (
         <Bubble style={styles.radio}>
             <RadioButton value={value}
-                color={theme.colors.primary}
+                color='white'
                 uncheckedColor="black"
             />
             <Text>{text}</Text>

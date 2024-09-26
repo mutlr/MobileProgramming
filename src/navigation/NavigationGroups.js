@@ -1,4 +1,3 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Settings from '../components/Settings';
 import Workouts from '../components/Workouts';
@@ -6,27 +5,14 @@ import Home from '../components/Home';
 import { useTheme } from 'react-native-paper';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { Text, Button, View } from 'react-native-paper';
+import Bubble from '../components/Bubble';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator()
 
 const headerStyle = {
     borderBottomWidth: 2,
     borderColor: "#B2E6D4",
-}
-const WorkoutGroup = () => {
-    return (
-        <Stack.Navigator screenOptions={{
-            headerTitleAlign: 'center',
-            headerStyle,
-        }}>
-            <Stack.Screen name='Home' component={Home}
-                options={{
-                    title: 'Home',
-                }}
-            />
-        </Stack.Navigator>
-    )
 }
 
 const TabGroup = () => {
@@ -39,7 +25,11 @@ const TabGroup = () => {
                 headerStyle,
                 tabBarStyle: {
                     borderTopWidth: 2,
-                    borderColor: theme.colors.secondary
+                    borderColor: theme.colors.secondary,
+                    height: 60,
+                    paddingBottom: 8,
+                    paddingTop: 8,
+
                 }
             }}
 

@@ -6,7 +6,8 @@ import WorkoutForm from "./WorkoutForm"
 import { useState } from "react"
 
 
-export const workouts = ["Run", "Ski", "Swim"]
+const workouts = ["Run", "Ski", "Swim"]
+
 const styles = StyleSheet.create({
     workoutList: {
         display: "flex",
@@ -21,12 +22,6 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     }
 })
-const WorkoutButton = ({ type, onClick, style }) => {
-    const theme = useTheme()
-    return (
-        <Button icon={type.toLowerCase()} onPress={onClick} style={style} textColor={theme.colors.textColor}>{type}</Button>
-    )
-}
 const Home = ({ navigation }) => {
     const theme = useTheme()
     const [type, setType] = useState(workouts[0])
@@ -40,9 +35,8 @@ const Home = ({ navigation }) => {
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
                     <Bubble style={{ backgroundColor: item === type ? theme.colors.primary : theme.colors.secondary }}>
-                        <Button icon={type.toLowerCase()} onPress={() => onPressFunction(item)} style={styles.button} textColor={theme.colors.textColor}>{type}</Button>
+                        <Button icon={item.toLowerCase()} onPress={() => onPressFunction(item)} style={styles.button} textColor={theme.colors.textColor}>{item}</Button>
                     </Bubble>
-
                 )}
                 horizontal={true}
                 style={styles.workoutList}

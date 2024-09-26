@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import UnitContext from "./unitContext";
-import { generateId, kilometerToMiles, MILE_VALUE } from "../utils/utils";
+import { generateId, kilometerToMiles, MILE_VALUE, milesToKilometer } from "../utils/utils";
 import { addToStorage, clearStorage, getFromStorage } from "../utils/storage";
 const STORAGE_KEY = "workouts"
 const initialWorkouts = [
@@ -34,10 +34,10 @@ export const WorkoutsProvider = ({ children }) => {
     const [summary, setSummary] = useState([])
     useEffect(() => {
         getFromStorage(STORAGE_KEY).then(result => {
-            console.log("Storage result: ", result)
-            if (result === null) return
-            setWorkouts(JSON.parse(result))
-        })
+            if (result) {
+                setWorkouts(JSON.parse(result))
+            }
+        }).catch(error => console.log("Error getting workouts: ", error))
     }, [])
     useEffect(() => {
         setSummary(statsSummary())
@@ -46,7 +46,7 @@ export const WorkoutsProvider = ({ children }) => {
         const workoutObject = {
             type: workout.sport,
             duration: workout.duration,
-            distance: unit === 'km' ? workout.distance : workout.distance * MILE_VALUE,
+            distance: unit === 'km' ? workout.distance : milesToKilometer(workout.distance),
             date: workout.date,
             id: generateId(),
         }
@@ -65,7 +65,8 @@ export const WorkoutsProvider = ({ children }) => {
             if (!accumulator[type]) {
                 accumulator[type] = 0
             }
-            accumulator[type] += unit === 'km' ? item.distance : kilometerToMiles(item.distance)
+            const distance = unit === 'km' ? item.distance : kilometerToMiles(item.distance)
+            accumulator[type] += Number(distance)
             return accumulator
         }, {})
 
