@@ -10,11 +10,11 @@ export const formatDate = (date) => {
 };
 export const MILE_VALUE = 1.609344
 export const kilometerToMiles = (km) => {
-    return (km / MILE_VALUE).toFixed(2);
+    return parseFloat((km / MILE_VALUE).toFixed(2));
 };
 
 export const milesToKilometer = (miles) => {
-    return (miles * MILE_VALUE).toFixed(2);
+    return parseFloat((miles * MILE_VALUE).toFixed(2));
 };
 
 export const generateId = () => {
